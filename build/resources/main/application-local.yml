@@ -1,0 +1,14 @@
+spring:
+  r2dbc:
+    url: r2dbc:mariadb://localhost:3306/kstd
+    username: c6n
+    password: 0000
+
+#  sql:
+#    init:
+#      mode: always
+
+logging:
+  level:
+    com.kstd: INFO
+    org.springframework.r2dbc: DEBUG
