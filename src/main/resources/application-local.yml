@@ -12,3 +12,7 @@ logging:
   level:
     com.kstd: INFO
     org.springframework.r2dbc: DEBUG
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui
