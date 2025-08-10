@@ -1,8 +1,7 @@
 package com.kstd.project.coin.service.dto;
 
 import com.kstd.project.coin.domain.Coin;
-import com.kstd.project.user.domain.UserCoin;
-import com.kstd.project.user.service.dto.UserCoinDto;
+import com.kstd.project.user.service.dto.UserDto;
 import java.util.List;
 import lombok.Builder;
 import lombok.Getter;
@@ -16,16 +15,16 @@ public class CoinDto {
 
     private int remainingAmount;
 
-    private List<UserCoinDto> userCoinDtoList;
+    private List<UserDto> userDtoList;
 
     public static CoinDto of(Coin coin) {
         return CoinDto.builder().build();
     }
 
-    public static CoinDto of(Tuple2<Coin, List<UserCoinDto>> tuple2) {
+    public static CoinDto of(Tuple2<Coin, List<UserDto>> tuple2) {
         return CoinDto.builder()
             .remainingAmount(tuple2.getT1().getRemainingAmount())
-            .userCoinDtoList(tuple2.getT2())
+            .userDtoList(tuple2.getT2())
             .build();
     }
 }

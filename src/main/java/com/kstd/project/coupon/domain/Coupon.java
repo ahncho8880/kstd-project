@@ -4,6 +4,9 @@ import com.kstd.project.common.domain.BaseTimeEntity;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Table;
 
+import lombok.Getter;
+
+@Getter
 @Table
 public class Coupon extends BaseTimeEntity {
 
@@ -12,5 +15,5 @@ public class Coupon extends BaseTimeEntity {
 
     private CouponType type;
 
-    private int requiredCoins;
+    private Integer requiredCoins;
 }

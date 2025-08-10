@@ -16,7 +16,7 @@ public class OpenApiConfig {
                 .title("Kstd Project WebFlux API")
                 .version("1.0.0")
                 .description("Spring WebFlux 기반 API 문서")
-                .contact(new Contact().name("안철현").url(""))
+                .contact(new Contact().name("안철현"))
             );
     }
 }
