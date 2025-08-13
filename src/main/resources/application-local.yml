@@ -4,10 +4,6 @@ spring:
     username: root
     password: 1111
 
-#  sql:
-#    init:
-#      mode: always
-
 logging:
   level:
     com.kstd: INFO

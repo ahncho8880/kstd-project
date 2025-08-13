@@ -111,4 +111,20 @@ public class UserServiceImpl implements UserService {
 				.userCouponStatus(userCoupon.getStatus())
 				.build());
 	}
+
+	@Override
+	public Mono<UserDto> addUserCoin(Long userId, Integer amount, Integer limit) {
+		return userRepository.findById(userId)
+			.switchIfEmpty(Mono.error(new KstdException("사용자를 찾을 수 없습니다.")))
+			.flatMap(user -> {
+				int userCoins = user.getCoinAmount() + amount;
+				if (userCoins > limit) {
+					return Mono.error(new KstdException("가질수 있는 코인 초과."));
+				}
+				user.setCoinAmount(userCoins);
+				return userRepository.save(user)
+					.map(UserDto::of)
+					.as(txOperator::transactional);
+			});
+	}
 }

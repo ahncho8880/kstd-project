@@ -16,4 +16,6 @@ public class Coupon extends BaseTimeEntity {
     private CouponType type;
 
     private Integer requiredCoins;
+
+	private Integer winnerCount;
 }

@@ -2,7 +2,7 @@ package com.kstd.project.coin.controller;
 
 import com.kstd.project.coin.service.CoinService;
 import com.kstd.project.coin.service.dto.CoinDto;
-import com.kstd.project.user.controller.UserController;
+import com.kstd.project.coin.service.dto.CoinRequestDto;
 import com.kstd.project.user.service.dto.UserDto;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -11,7 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Mono;
 
@@ -24,8 +24,9 @@ public class CoinController {
 
     @PostMapping("/coins/apply")
     @Operation(summary = "응모 코인 획득", description = "응모 코인을 획득 요청한다")
-    public Mono<CoinApplyResponse> apply() {
-        return Mono.empty();
+    public Mono<CoinApplyResponse> apply(@RequestBody CoinApplyRequest request) {
+        return coinService.applyCoin(new CoinRequestDto(request.userId, request.coinId))
+			.map(CoinApplyResponse::of);
     }
 
     @GetMapping("/coins/{coinId}/report")
@@ -35,7 +36,12 @@ public class CoinController {
             .map(CoinReportResponse::of);
     }
 
-    public record CoinApplyResponse() {}
+    public record CoinApplyRequest(Long userId, Long coinId) {}
+    public record CoinApplyResponse(Long userId, Integer userCoins) {
+		public static CoinApplyResponse of(CoinDto coinDto) {
+			return new CoinApplyResponse(coinDto.getUserId(), coinDto.getUserCoins());
+		}
+	}
 
     public record CoinReportResponse(Integer totalRemainingCoins, List<UserCoinReportResponse> users) {
         private static CoinReportResponse of(CoinDto coinDto) {

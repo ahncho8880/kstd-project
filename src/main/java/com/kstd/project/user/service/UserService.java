@@ -23,4 +23,6 @@ public interface UserService {
 	Mono<List<UserDto>> getUserCoupon(Long userId);
 
 	Flux<UserDto> getUserCouponByCouponId(Long couponId);
+
+	Mono<UserDto> addUserCoin(Long userId, Integer amount, Integer limit);
 }

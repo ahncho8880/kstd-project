@@ -13,13 +13,13 @@ import reactor.util.function.Tuple2;
 @Builder
 public class CoinDto {
 
+	private Long userId;
+
+	private Integer userCoins;
+
     private int remainingAmount;
 
     private List<UserDto> userDtoList;
-
-    public static CoinDto of(Coin coin) {
-        return CoinDto.builder().build();
-    }
 
     public static CoinDto of(Tuple2<Coin, List<UserDto>> tuple2) {
         return CoinDto.builder()
@@ -27,4 +27,8 @@ public class CoinDto {
             .userDtoList(tuple2.getT2())
             .build();
     }
+
+	public static CoinDto of(UserDto userDto) {
+		return CoinDto.builder().userId(userDto.getUserId()).userCoins(userDto.getUserCoins()).build();
+	}
 }
